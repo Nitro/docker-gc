@@ -15,6 +15,7 @@ DRY_RUN=' '
 }
 
 COMMIT=`git rev-parse --short HEAD`
+VERSION="2:`cat version.txt`~${COMMIT}"
 TAG="gonitro/docker-gc-build:${COMMIT}"
 AWS_REGION=us-west-2
 BUCKET=nitro-apt-repo
@@ -22,7 +23,7 @@ NITRO_GPG_KEY=C5075270
 
 $DRY_RUN docker build \
     -t ${TAG} \
-    --build-arg COMMIT=${COMMIT} \
+    --build-arg VERSION=${VERSION} \
     --build-arg AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \
     --build-arg AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \
     -f ./Dockerfile.deb .

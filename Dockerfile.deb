@@ -4,7 +4,7 @@ LABEL description="Docker image for building docker-gc debian package" \
       maintainer="infra-guild@gonitro.com" \
       repository="https://github.com/Nitro/docker-gc"
 
-ARG COMMIT
+ARG VERSION
 ARG AWS_ACCESS_KEY_ID
 ARG AWS_SECRET_ACCESS_KEY
 
@@ -21,7 +21,7 @@ RUN apt-get update && apt install -y \
     dh-make
 
 RUN DEBEMAIL="Infrastructure Guild <infra-guild@gonitro.com>" dch "Nitro build." \
-    -l"~${COMMIT}" \
+    --newversion "${VERSION}" \
     --no-auto-nmu
 
 RUN debuild --no-lintian -us -uc -b
